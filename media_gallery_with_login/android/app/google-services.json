@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1088539087147",
+    "project_id": "media-gallery-codesonbytes",
+    "storage_bucket": "media-gallery-codesonbytes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1088539087147:android:3f8f9eff48e3268a26f56e",
+        "android_client_info": {
+          "package_name": "com.example.media_gallery_with_login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnSEmwDbwIgElxg7GBz7_1zHfZoJXSuFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

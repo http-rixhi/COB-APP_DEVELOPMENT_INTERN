@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:media_gallery_with_login/pages/media_view_page.dart';
+import 'package:media_gallery_with_login/screens/login_screen.dart';
+import 'package:toast/toast.dart';
 
 class MediaGalleryScreen extends StatelessWidget {
   MediaGalleryScreen({Key? key}) : super(key: key);
@@ -30,13 +34,39 @@ class MediaGalleryScreen extends StatelessWidget {
     'https://cdn.pixabay.com/photo/2017/12/11/15/34/lion-3012515_640.jpg',
   ];
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  signOut() async {
+    await auth.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text("Media Gallery"),
+        automaticallyImplyLeading: false,
+        title: const Text("Media Gallery"),
+        actions: [
+          PopupMenuButton(itemBuilder: (context){
+            return [
+              PopupMenuItem(
+                value: 0,
+                child: Text('LOGOUT'),
+              )
+            ];
+          },
+            onSelected: (value){
+            if(value == 0) {
+              signOut();
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => LoginScreen(controller: PageController()
+              )));
+              Toast.show('Logged Out Successfully');
+            }
+            },
+          )
+        ],
       ),
+
       body: GridView.builder(
         physics: const BouncingScrollPhysics(
           parent: AlwaysScrollableScrollPhysics(),

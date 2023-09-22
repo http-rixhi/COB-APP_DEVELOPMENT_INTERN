@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:media_gallery_with_login/pages/register_page.dart';
 import 'package:media_gallery_with_login/screens/media_gallery_screen.dart';
+import 'package:toast/toast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.controller});
@@ -12,13 +12,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SafeArea(
           child: Center(
@@ -29,8 +30,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Image(image: NetworkImage('https://www.canva.com/design/DAFvASPcOVk/gsGb2zaQ0cz5KR2ijXF3Uw/edit?utm_content=DAFvASPcOVk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton')),
-                    const SizedBox(height: 20,),
+                    Text('MEDIA GALLERY',
+                        style: TextStyle(
+                            fontSize: 40, fontWeight: FontWeight.bold)),
+                    Text('By Rishi Raj',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            fontStyle: FontStyle.italic)),
+                    const SizedBox(
+                      height: 100,
+                    ),
                     TextField(
                       controller: _emailController,
                       textAlign: TextAlign.left,
@@ -112,7 +122,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                           onPressed: () async {
                             try {
-                              UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                              UserCredential userCredential = await FirebaseAuth
+                                  .instance
+                                  .signInWithEmailAndPassword(
                                 email: _emailController.text,
                                 password: _passController.text,
                               );
@@ -122,9 +134,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => MediaGalleryScreen()));
+                                      builder: (context) =>
+                                          MediaGalleryScreen()));
                             } catch (e) {
-                              print('Sign-in error: $e');
+                              Toast.show('Credentials Not Match');
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -166,19 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               email: _emailController.text,
                               password: _passController.text,
                             );
+                            Toast.show('User Successfully Created');
                           },
-
-                          //     () {
-                          //   showDialog(
-                          //     context: context,
-                          //     builder: (BuildContext context) {
-                          //       return const AlertDialog(
-                          //         title: Text('Register'),
-                          //         content: RegisterPage(),
-                          //       );
-                          //     }
-                          //   );
-                          // },
                           child: const Text(
                             'Sign Up',
                             style: TextStyle(
@@ -194,15 +196,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 15,
                     ),
-                    const Text(
-                      'Forget Password?',
-                      style: TextStyle(
-                        color: Color(0xFF755DC1),
-                        fontSize: 13,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    // const Text(
+                    //   'Forget Password?',
+                    //   style: TextStyle(
+                    //     color: Color(0xFF755DC1),
+                    //     fontSize: 13,
+                    //     fontFamily: 'Poppins',
+                    //     fontWeight: FontWeight.w500,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
