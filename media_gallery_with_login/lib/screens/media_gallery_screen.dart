@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:media_gallery_with_login/pages/media_view_page.dart';
 import 'package:media_gallery_with_login/screens/login_screen.dart';
@@ -48,7 +47,7 @@ class MediaGalleryScreen extends StatelessWidget {
         actions: [
           PopupMenuButton(itemBuilder: (context){
             return [
-              PopupMenuItem(
+              const PopupMenuItem(
                 value: 0,
                 child: Text('LOGOUT'),
               )
